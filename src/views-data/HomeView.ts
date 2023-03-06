@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
   // You won't be able to access the user's data or the browser window.
   return {
     props: {
-      doggyName: "Maggie 🐶",
+      doggyName: "Kara 🐶",
       dogImage: await getRandomDogImageURL(),
     },
   };

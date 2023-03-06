@@ -1,5 +1,5 @@
 import { getRandomDogImageURL } from "@/services/network/DoggyAPI";
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 import { HomePageProps } from "../services/models/pages/HomePage";
 
 export const getServerSideProps: GetServerSideProps<HomePageProps> = async (

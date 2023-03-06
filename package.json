@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:style": "npx stylelint '**/*.scss'",
+    "lint:all": "next lint && npx stylelint '**/*.scss'",
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "jest"
   },
   "dependencies": {
     "@types/node": "18.14.2",

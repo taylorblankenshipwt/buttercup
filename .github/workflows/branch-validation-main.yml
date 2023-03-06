@@ -1,0 +1,22 @@
+name: Run PR Branch Name Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  PR_source_is_develop:
+    if: github.head_ref == 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pass Status Check
+        run: exit 0
+  PR_source_branch_is_not_develop:
+    if: github.head_ref != 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail Status Check
+        run: |
+          echo Only PRs from 'develop' can be merged into main
+          exit 1

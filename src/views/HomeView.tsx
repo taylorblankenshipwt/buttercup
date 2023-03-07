@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from '@/styles/Home.module.css';
+import styles from '@/styles/Home.module.scss';
 import { NextPage } from 'next';
 import { HomePageProps } from '../services/models/pages/HomePage';
 import Button from '../components/Button/Button';

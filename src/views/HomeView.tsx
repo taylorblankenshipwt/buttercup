@@ -1,9 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "@/styles/Home.module.css";
-import { NextPage } from "next";
-import { HomePageProps } from "../services/models/pages/HomePage";
-import Button from "../components/Button/Button";
+import Head from 'next/head';
+import styles from '@/styles/Home.module.scss';
+import { NextPage } from 'next';
+import { HomePageProps } from '../services/models/pages/HomePage';
+import Button from '../components/Button/Button';
 
 const Home: NextPage<HomePageProps> = ({ doggyName, dogImage }) => {
   return (

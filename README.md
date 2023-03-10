@@ -1,13 +1,9 @@
 <br />
 <div align="center">
-    <!-- PROJECT LOGO -->
-    <img src="public/imagesForReadme/treeSearchLogo.png" alt="TreeSearch Logo" />
-    <br />
+    <p align="center">
+    MANGO
     <br />
   <!-- Relevant Project Links -->
-  <p align="center">
-  TreeSearch is a simple app designed to help Trees discover and learn about their fellow Trees. The goal is to provide WillowTree employees with a low-maintenance, extensible tool which provides parity (or better) functionality to existing disparate tools (such as Bamboo, Lattice, Degreed, etc).
-    <br />
     <br />
 
 [Coding Patterns & Practices](/templates/README.md)
@@ -30,7 +26,6 @@
     - [Installation](#installation)
   - [Developer Workflow](#developer-workflow)
     - [Running Local Server](#running-local-server)
-    - [Running Storybook](#running-storybook)
     - [Running ESLint & Stylelint](#running-eslint-and-stylelint)
     - [Running Unit Tests](#running-unit-tests)
 </details>
@@ -157,14 +152,14 @@ import { assignTestID } from 'shared/TestIDs'
 to pull in a function that returns a test ID attribute. The assigned value is type-enforced so that the argument must be the key for a declared test ID in the TestIDs class. The syntax for assigning a test ID looks like this:
 
 ```
-<div {...assignTestID('TreeProfileName')} />
+<div {...assignTestID('DoggyLinkName')} />
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Web Environments
 
-Mango's Web platform currently supports three different environments: Local, Development, and Production. Deployed versions of Development and Production environments can be found at [dev.treesearch.wtinternal.com](https://dev.treesearch.wtinternal.com/) and [treesearch.wtinternal.com](https://buttercup-taylorblankenshipwt.vercel.app/) respectively. The Local environment can be accessed by running `npm run dev` on your machine, then navigating to [http://localhost:3000](http://localhost:3000).
+Mango's Web platform currently supports three different environments: Local, Development, and Production. Deployed version of Production environment can be found at [buttercup.vercel.app/](https://buttercup.vercel.app/). The Local environment can be accessed by running `npm run dev` on your machine, then navigating to [http://localhost:3000](http://localhost:3000).
 
 ### Local
 
@@ -176,7 +171,7 @@ Development is the most up-to-date version of the codebase, with features from b
 
 ### Production
 
-Production is a collection of released features; all work added to Production has gone through rigorous testing (both automated and manual) and is stable enough to be user-facing.
+Production is a collection of released features; all work added to Production is stable enough to be user-facing.
 
 Currently data across all three environments is the same, sourced from the same data lake.
 

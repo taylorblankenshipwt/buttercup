@@ -6,7 +6,7 @@
   <!-- Relevant Project Links -->
     <br />
 
-[Coding Patterns & Practices]((#coding-patterns--practices))
+[Coding Patterns & Practices](#coding-patterns--practices)
 ·
 <a href="https://taylorblankenship.atlassian.net/jira/software/c/projects/PN/boards/1">Jira Board</a>
 ·

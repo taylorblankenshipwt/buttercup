@@ -62,10 +62,6 @@ To get this project set up locally, go through the steps below.
 
 - Visual Studio Code is not required for this project but is recommended. You can [download VS Code from here](https://code.visualstudio.com/).
 
-- Usage of the dotenv package (see reasoning in [Environment Variables](#environment-variables) means that in order to specify environment variables for the application in a local build, the variables must be assigned values in a `.env` file at the root level. The following environment variables can be specified:
-  - `HOSTED_URL`: The URL the application will redirect to following authentication. If no value is provided, it will default to 'http://localhost:3000'.
-  - `API_URL`: The URL the application will reference when fetching treeSearch data. If no value is provided, it will default to 'https://dev.api.treesearch.wtinternal.com'.
-
 ### Installation
 
 1. Clone the repo
@@ -141,7 +137,7 @@ When creating a unit test that requires test IDs, use the import statement
 import { TestIDs } from 'shared/TestIDs'
 ```
 
-to pull in a class instance with all declared test IDs. Test IDs within the class are grouped into objects based on components, with properties that represent elements within the component. For example: `TestIDs.TreeProfile.TreeProfileName` should reference the declared test ID for the name field within `TreeProfile`.
+to pull in a class instance with all declared test IDs. Test IDs within the class are grouped into objects based on components, with properties that represent elements within the component. For example: `TestIDs.DoggyLink.DoggyLinkName` should reference the declared test ID for the name field within `DoggyLink`.
 
 When tagging a TSX element with a test ID, use the import statement
 
@@ -175,7 +171,7 @@ Production is a collection of released features; all work added to Production is
 
 Currently data across all three environments is the same, sourced from the same data lake.
 
-Merges to the `development` branch lead to automated deployments to the Development environment, while merges to the `main` branch result in deployments to the Production environment.
+Merges to the `develop` branch lead to automated deployments to the Development environment, while merges to the `main` branch result in deployments to the Production environment.
 
 In order to successfully merge to Development, the to-be-merged code must pass all validation checks. To merge to Production, the `develop` branch must first successfully build and deploy to Development.
 
@@ -183,38 +179,24 @@ In order to successfully merge to Development, the to-be-merged code must pass a
 
 ## TreeSearch Pipelines
 
-There are three existing pipelines that use GitHub Actions: PR Validation, Build & Deployment for Development, and Build & Deployment for Production.
+There are four existing pipelines that use GitHub Actions: PR Validation, Run PR Branch Name Check, Vercel Preview Deployment (for Develop), and Vercel Production Deployment (for Production).
 
 Branch protections have been configured so that PR Validation will run on any PRs attempting to merge changes into `develop`. It runs unit testing, linting checks, and type checks. Failure of any validation checks will throw an error and prevent the merging of the tested branch.
 
-Build & Deployment for Development and Production share the same workflow (`build-and-deploy.yml`), and are mainly distinguishable by the environment variables and secrets passed through them. The resulting artifacts of the build step are deployed to an S3 Bucket (either `treesearch-web-dev` or `treesearch-web-prod`, depending on the environment).
+Run PR Branch Name Check runs on creation of a PR that is merging into main. Its purpose is to prevent accidental merges of untested code into production.
 
-### Environment Variables
-
-`HOSTED_URL` is a variable referenced across the app that helps determine which URL the application should be redirected to following authentication.
-
-Node.js has a built-in environment variable called `NODE_ENV`, which would typically be used to help the application determine which environment the application should be configured for, and which value for `HOSTED_URL` to use. However, due to there being three environments (Local, Development, and Production) and `NODE_ENV`’s approach to distinguishing ‘production’ from ‘development’, the typical environment identification methods did not work and could not be relied on to determine which `HOSTED_URL` value was needed.
-
-Due to TreeSearch being a static site (using Webpack to bundle HTML/CSS/Javascript), we were also unable to pass runtime environment variables from the command line——a common approach to take if TreeSearch was a hosted site.
-
-Thus, within the build and deploy workflow, an alternate solution that involves injecting the `HOSTED_URL` value on a per-environment basis to be referenced both during build time and runtime was used.
-
-Next.js references the `next.config.js` file in order to make environment variable values accessible at build time, however Node.js by default does not expose this value to the browser (client-side). `HOSTED_URL` is referenced within `AWSContext` in TreeSearch—this portion of the application does not use Next.js’s server-side rendering functionality, instead relying on React’s typical client-side rendering. Thus, both the Next.js configuration and React Context needed a method of accessing the `HOSTED_URL` variable in order to know which URL to redirect to. We resolved this issue using the [dotenv package](https://www.npmjs.com/package/dotenv), which enabled us to inject the desired `HOSTED_URL` value through a temporarily-created `.env` file in the pipeline during build time.
+Vercel Preview Deployment and Vercel Production Deployment run on merges to develop and main respectively. They deploy the site to their intended environments.
 
 ## Release Process
 
-TreeSearch’s `develop` and `main` branches represent Development and Production, with feature work being implemented and added to the `develop` branch, and eventually released via the `main` branch.
+Mango’s `develop` and `main` branches represent Development and Production, with feature work being implemented and added to the `develop` branch, and eventually released via the `main` branch.
 
-When a new release is ready to be cut (following all needed code changes and regression testing on Development), a new PR should be created to merge the `develop` branch into the `main` branch.
-
-In order to track releases and versioning, upon deployment to `develop` or `main`, an additional file, `version.txt` is uploaded to the S3 bucket alongside the build artifact. This file contains information about the head commit of the branch (date of committing, and hash) at the time of deployment.
+When a new release is ready to be cut, a new PR should be created to merge the `develop` branch into the `main` branch.
 
 ### How to release to Production
 
 1. Create a PR to merge `develop` into `main`.
 1. When the PR is approved and has passed all required checks, merge all commits.
-1. Navigate to the `treesearch-web-prod` S3 bucket and download the `version.txt` file. Check that the date and commit hash included in the file matches the last commit included within the release.
-1. Navigate to [treesearch.wtinternal.com](https://treesearch.wtinternal.com/) and do any necessary testing to ensure that all release features are included and work as expected. If any issues arise, make changes on a hotfix branch off of `develop`, and merge those changes into `develop` prior to attempting a new PR merge to `main`.
 
 Congrats! You’ve completed the release.
 

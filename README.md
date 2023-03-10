@@ -11,7 +11,7 @@
 <a href="https://taylorblankenship.atlassian.net/jira/software/c/projects/PN/boards/1">Jira Board</a>
 ·
 <a href="https://www.figma.com/file/Otg2TnX6eqwLevX1yq3CAL/Mango?node-id=0%3A1&t=WYLxGgcHXoABH1T9-0">Figma Designs</a>
-.
+·
 <a href="https://buttercup.vercel.app/">Production Site</a>
 
   </p>

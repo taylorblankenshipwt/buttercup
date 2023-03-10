@@ -177,7 +177,7 @@ In order to successfully merge to Development, the to-be-merged code must pass a
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## TreeSearch Pipelines
+## Pipelines
 
 There are four existing pipelines that use GitHub Actions: PR Validation, Run PR Branch Name Check, Vercel Preview Deployment (for Develop), and Vercel Production Deployment (for Production).
 
